@@ -12,7 +12,7 @@ Simple math expression parser that takes into accoutnt order of operations. I ma
 
 ## Todo
 
-[ ] Fix bug with negative numbers
-[ ] Add support for exponentaion, factorials etc.
-[ ] Better parsing
-[ ] General refactor
+-[ ] Fix bug with negative numbers
+-[ ] Add support for exponentaion, factorials etc.
+-[ ] Better parsing
+-[ ] General refactor
