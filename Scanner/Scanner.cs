@@ -5,12 +5,12 @@ public class Scanner
     private readonly string _source;
     private readonly List<Token> _tokens;
 
-    private int start = 0;
-    private int current = 0;
-    private int line = 1;
+    private int _start = 0;
+    private int _current = 0;
+    private int _line = 1;
 
 
-    private bool IsEnd() => current >= _source.Length;
+    private bool IsEnd() => _current >= _source.Length;
     
     public Scanner(string source)
     {
@@ -18,15 +18,15 @@ public class Scanner
         _tokens = new List<Token>();
     }
 
-    public IEnumerable<Token> ScanTokens()
+    public List<Token> ScanTokens()
     {
         while (!IsEnd())
         {
-            start = current;
+            _start = _current;
             ScanToken();
         }
         
-        _tokens.Add(new Token(TokenType.EOF, "", null, line));
+        _tokens.Add(new Token(TokenType.EOF, "", '\0'));
         return _tokens;
     }
 
@@ -47,9 +47,6 @@ public class Scanner
             case ')':
                 AddToken(TokenType.RPAREN, ')');
                 break;
-            case '.':
-                AddToken(TokenType.DOT, '.');
-                break;
             case '-':
                 AddToken(TokenType.MINUS, '-');
                 break;
@@ -67,7 +64,7 @@ public class Scanner
             case '\t':
                 break;
             case '\n':
-                line++;
+                _line++;
                 break;
             default:
                 Console.WriteLine("Error");
@@ -86,7 +83,7 @@ public class Scanner
             while (IsDigit(Peek())) Consume();
         }
         
-        AddToken(TokenType.NUMBER, _source.Substring(start, current - start));
+        AddToken(TokenType.NUMBER, _source.Substring(_start, _current - _start));
     }
     
     private static bool IsDigit(char c)
@@ -96,22 +93,22 @@ public class Scanner
 
     private char Consume()
     {
-        return _source[current++];
+        return _source[_current++];
     }
 
     private char Peek()
     {
-        return IsEnd() ? '\0' : _source[current];
+        return IsEnd() ? '\0' : _source[_current];
     }
     
     private char PeekNext()
     {
-        return current + 1 >= _source.Length ? '\0' : _source[current + 1];
+        return _current + 1 >= _source.Length ? '\0' : _source[_current + 1];
     } 
 
     private void AddToken(TokenType type, object literal)
     {
-        var text = _source.Substring(start, current - start);
-        _tokens.Add(new Token(type, text, literal, line));
+        var text = _source.Substring(_start, _current - _start);
+        _tokens.Add(new Token(type, text, literal));
     }
 }

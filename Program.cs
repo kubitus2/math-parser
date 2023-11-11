@@ -1,4 +1,6 @@
-﻿using math_parser.Scanner;
+﻿using math_parser.Evaluator;
+using math_parser.Parser;
+using math_parser.Scanner;
 
 RunPrompt();
 
@@ -24,4 +26,12 @@ void Run(string line)
     {
         Console.WriteLine(token.ToString());
     }
+    
+    Console.WriteLine("Parsing");
+
+    var parser = new Parser(tokens);
+    var rpn = parser.GenerateRPN();
+
+    var eval = new Evaluator(rpn);
+    
 }
