@@ -33,5 +33,6 @@ void Run(string line)
     var rpn = parser.GenerateRPN();
 
     var eval = new Evaluator(rpn);
-    
+    Console.WriteLine();
+    Console.WriteLine($"Result: {eval.Evaluate()}");
 }

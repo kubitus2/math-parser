@@ -36,7 +36,7 @@ public class Parser
         _operators = new Stack<Token>();
     }
 
-    public Stack<Token> GenerateRPN()
+    public List<Token> GenerateRPN()
     {
         foreach (var token in _tokens)
         {
@@ -95,6 +95,6 @@ public class Parser
         }
         Console.WriteLine();
 
-        return _output;
+        return _output.ToList();
     }
 }
