@@ -1,2 +1,27 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using math_parser.Scanner;
+
+RunPrompt();
+
+void RunPrompt()
+{
+    for (;;)
+    {
+        Console.Write("> ");
+        var line = Console.ReadLine();
+        if (string.IsNullOrEmpty(line)) break;
+        
+        Run(line);
+
+
+    }
+}
+
+void Run(string line)
+{
+    var scanner = new Scanner(line);
+    var tokens = scanner.ScanTokens();
+    foreach (var token in tokens)
+    {
+        Console.WriteLine(token.ToString());
+    }
+}
